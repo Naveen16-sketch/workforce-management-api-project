@@ -1,7 +1,7 @@
-.gradle
-build/
-out/
+.git
+.metadata
+.idea
 *.iml
-*.log
-*.tmp
-*.md
+target/
+build/
+*.lock

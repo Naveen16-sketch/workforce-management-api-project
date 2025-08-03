@@ -1,11 +1,10 @@
-# Use official OpenJDK image as base
-FROM openjdk:17-jdk-slim
-
-# Set the working directory in the container
+# Build stage
+FROM gradle:jdk17 AS builder
 WORKDIR /app
+COPY . .
+RUN gradle build
 
-# Copy build/libs/*.jar to the container
-COPY build/libs/*.jar app.jar
-
-# Run the jar file
+# Runtime stage
+FROM eclipse-temurin:17-jre
+COPY --from=builder /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
